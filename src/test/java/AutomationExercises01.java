@@ -8,6 +8,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.util.Date;
+
 public class AutomationExercises01 extends TestBase {
 
      /*
@@ -34,37 +36,63 @@ public class AutomationExercises01 extends TestBase {
     @Test
     public void test01() throws InterruptedException {
 
+        // Navigate to url 'http://automationexercise.com'
         driver.get("https://www.automationexercise.com");
 
+        // Verify that home page is visible successfully
         String expectedUrl = "https://www.automationexercise.com/";
         String actualUrl = driver.getCurrentUrl();
         Assert.assertEquals(expectedUrl, actualUrl);
 
+        // Click on 'Signup / Login' button
         WebElement signInLogInButton = driver.findElement(By.xpath(" //a[@href='/login']"));
         signInLogInButton.click();
 
-        WebElement newUserYazi = driver.findElement(By.xpath(" //h2[text()='New User Signup!']"));
-        Assert.assertTrue(newUserYazi.isDisplayed());
+        // Verify 'New User Signup!' is visible
+        WebElement newUserSignup = driver.findElement(By.xpath(" //h2[text()='New User Signup!']"));
+        Assert.assertTrue(newUserSignup.isDisplayed());
 
+
+        // Fill details: Title, Name, Email, Password, Date of birth
         Actions actions = new Actions(driver);
         Faker faker = new Faker();
         String fakeMail = faker.internet().emailAddress();
-        WebElement userName = driver.findElement(By.xpath(" //input[@name='name']"));
-        actions.click(userName).sendKeys(faker.name().firstName()).sendKeys(Keys.TAB).sendKeys(fakeMail).sendKeys(Keys.TAB).sendKeys(Keys.ENTER).perform();
+        String fakeName = faker.name().firstName();
 
-        WebElement enterAccountInformationYazisi = driver.findElement(By.xpath("//h2[@class='title text-center']"));
-        Assert.assertTrue(enterAccountInformationYazisi.isDisplayed());
+        WebElement userName = driver.findElement(By.xpath(" //input[@name='name']"));
+        actions.click(userName).sendKeys(fakeName).sendKeys(Keys.TAB).sendKeys(fakeMail).sendKeys(Keys.TAB).sendKeys(Keys.ENTER).perform();
+
+        // Verify that 'ENTER ACCOUNT INFORMATION' is visible
+        WebElement enterAccountInfo = driver.findElement(By.xpath("//h2[@class='title text-center']"));
+        Assert.assertTrue(enterAccountInfo.isDisplayed());
 
         WebElement mrTitleButton = driver.findElement(By.xpath("//input[@value='Mr']"));
 
         if (!mrTitleButton.isSelected()) {
             mrTitleButton.click();
         }
-        actions.sendKeys(Keys.TAB).sendKeys(Keys.TAB).sendKeys(faker.internet().password()).sendKeys(Keys.TAB)
-                .sendKeys("5").sendKeys(Keys.TAB).sendKeys(Keys.ENTER).sendKeys(Keys.ARROW_DOWN)
-                .sendKeys(Keys.ENTER).sendKeys(Keys.TAB).sendKeys(Keys.ENTER).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER)
+
+        Thread.sleep(2000);
+        String fakePassword = faker.internet().password();
+
+        actions.sendKeys(Keys.TAB)
+                .sendKeys(Keys.TAB)
+                .sendKeys(fakePassword)
+                .sendKeys(Keys.TAB)
+                .sendKeys("9")
+                .sendKeys(Keys.TAB)
+                .sendKeys(Keys.ENTER)
+                .sendKeys(Keys.ARROW_DOWN)
+                .sendKeys(Keys.ENTER)
+                .sendKeys(Keys.TAB)
+                .sendKeys(Keys.ENTER)
+                .sendKeys(Keys.ARROW_DOWN)
+                .sendKeys(Keys.ENTER)
                 .build().perform();
 
+        Thread.sleep(2000);
+        // Select checkbox 'Sign up for our newsletter!'
+        // Select checkbox 'Receive special offers from our partners!'
         JavascriptExecutor jse = (JavascriptExecutor) driver;
         WebElement checkBox1 = driver.findElement(By.xpath("(//input[@type='checkbox'])[1]"));
         jse.executeScript("arguments[0].scrollIntoView(true);", checkBox1);
@@ -82,42 +110,50 @@ public class AutomationExercises01 extends TestBase {
         if (!checkBox2.isSelected()) {
             checkBox2.click();
         }
-        // 12. Fill details: First name, Last name, Company, Address, Address2, Country, State, City, Zipcode, Mobile Number
+        // Fill details: First name, Last name, Company, Address, Address2, Country, State, City, Zipcode, Mobile Number
+        // Click 'Create Account button'
         JavascriptExecutor jse1 = (JavascriptExecutor) driver;
         WebElement name = driver.findElement(By.xpath("//input[@id='first_name']"));
         jse.executeScript("arguments[0].scrollIntoView(true);", name);
-        actions.click(name).sendKeys(faker.name().firstName())
+        actions.click(name).sendKeys(fakeName)
                 .sendKeys(Keys.TAB)
-                .sendKeys(faker.name().lastName()).
-                sendKeys(Keys.TAB).sendKeys("MyCompany" + Keys.TAB).sendKeys("MyAdress" + Keys.TAB)
-                .sendKeys("MyAdress2" + Keys.TAB).sendKeys("Canada" + Keys.TAB).sendKeys("Turkey" + Keys.TAB)
+                .sendKeys(faker.name().lastName())
+                .sendKeys(Keys.TAB)
+                .sendKeys("MyCompany" + Keys.TAB)
+                .sendKeys("MyAdress" + Keys.TAB)
+                .sendKeys("MyAdress2" + Keys.TAB)
+                .sendKeys("Canada" + Keys.TAB)
+                .sendKeys("Turkey" + Keys.TAB)
                 .sendKeys("MyCity" + Keys.TAB)
                 .sendKeys("12456" + Keys.TAB)
                 .sendKeys("0553-72-10" + Keys.TAB)
                 .sendKeys(Keys.ENTER)
                 .perform();
 
-        //14. Verify that 'ACCOUNT CREATED!' is visible
+        // Verify that 'ACCOUNT CREATED!' is visible
         WebElement accountCreatedYazisi = driver.findElement(By.xpath("//b[text()='Account Created!']"));
         Assert.assertTrue(accountCreatedYazisi.isDisplayed());
 
-        //15. Click 'Continue' button
+        // Click 'Continue' button
         WebElement continueButton = driver.findElement(By.xpath("//a[@class='btn btn-primary']"));
         actions.click(continueButton).build().perform();
 
-        //Çıkan reklamı kapat
-        WebElement reklamKapatmaTusu = driver.findElement(By.xpath("//div[@id='dismiss-button']"));
-        actions.click(reklamKapatmaTusu).build().perform();
+        // Çıkan reklamı kapat
 
-        //16. Verify that 'Logged in as username' is visible
+        WebElement iframeElementi = driver.findElement(By.xpath("//iframe[@id='aswift_2']"));
+        driver.switchTo().frame(iframeElementi);
+
+        driver.switchTo().defaultContent();
+
+        // Verify that 'Logged in as username' is visible
         WebElement loggedInAsUsername = driver.findElement(By.xpath("//*[@id=\"header\"]/div/div/div/div[2]/div/ul/li[10]/a"));
         Assert.assertTrue(loggedInAsUsername.isDisplayed());
 
-        //17. Click 'Delete Account' button
+        // Click 'Delete Account' button
         WebElement deleteAccountButton = driver.findElement(By.xpath("//*[@id=\"header\"]/div/div/div/div[2]/div/ul/li[5]/a"));
         actions.click(deleteAccountButton).build().perform();
 
-        //18. Verify that 'ACCOUNT DELETED!' is visible and click 'Continue' button
+        // Verify that 'ACCOUNT DELETED!' is visible and click 'Continue' button
         WebElement accountDeletedYazisi = driver.findElement(By.xpath("//*[@id=\"form\"]/div/div/div/h2/b"));
         Assert.assertTrue(accountDeletedYazisi.isDisplayed());
     }
