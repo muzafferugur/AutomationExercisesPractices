@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import java.util.Date;
+import java.util.Random;
 
 public class AutomationExercises01 extends TestBase {
 
@@ -72,9 +73,9 @@ public class AutomationExercises01 extends TestBase {
             mrTitleButton.click();
         }
 
+
         Thread.sleep(2000);
         String fakePassword = faker.internet().password();
-
         actions.sendKeys(Keys.TAB)
                 .sendKeys(Keys.TAB)
                 .sendKeys(fakePassword)
@@ -140,9 +141,12 @@ public class AutomationExercises01 extends TestBase {
 
         // Çıkan reklamı kapat
 
-        WebElement iframeElementi = driver.findElement(By.xpath("//iframe[@id='aswift_2']"));
+        WebElement iframeElementi = driver.findElement(By.xpath("//iframe[@id='ad_iframe']"));
         driver.switchTo().frame(iframeElementi);
 
+        Thread.sleep(2000);
+        WebElement closeTusu = driver.findElement(By.xpath("//span[@class='ns-710zx-e-16']"));
+        actions.click(closeTusu).build().perform();
         driver.switchTo().defaultContent();
 
         // Verify that 'Logged in as username' is visible
