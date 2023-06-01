@@ -116,14 +116,18 @@ public class AutomationExercises01 extends TestBase {
                 .sendKeys(Keys.TAB)
                 .sendKeys(faker.name().lastName())
                 .sendKeys(Keys.TAB)
-                .sendKeys("MyCompany" + Keys.TAB)
-                .sendKeys("MyAdress" + Keys.TAB)
-                .sendKeys("MyAdress2" + Keys.TAB)
+                .sendKeys(faker.company().name())
+                .sendKeys(Keys.TAB)
+                .sendKeys(faker.address().fullAddress())
+                .sendKeys(Keys.TAB)
+                .sendKeys(faker.address().fullAddress())
+                .sendKeys(Keys.TAB)
                 .sendKeys("Canada" + Keys.TAB)
                 .sendKeys("Turkey" + Keys.TAB)
                 .sendKeys("MyCity" + Keys.TAB)
                 .sendKeys("12456" + Keys.TAB)
-                .sendKeys("0553-72-10" + Keys.TAB)
+                .sendKeys(faker.phoneNumber().phoneNumber())
+                .sendKeys(Keys.TAB)
                 .sendKeys(Keys.ENTER)
                 .perform();
 
@@ -136,7 +140,7 @@ public class AutomationExercises01 extends TestBase {
         actions.click(continueButton).build().perform();
 
         // Çıkan reklamı kapat
-
+/*
         WebElement iframeElementi = driver.findElement(By.xpath("//iframe[@id='ad_iframe']"));
         driver.switchTo().frame(iframeElementi);
 
@@ -144,6 +148,8 @@ public class AutomationExercises01 extends TestBase {
         WebElement closeTusu = driver.findElement(By.xpath("//span[@class='ns-710zx-e-16']"));
         actions.click(closeTusu).build().perform();
         driver.switchTo().defaultContent();
+
+ */
 
         // Verify that 'Logged in as username' is visible
         WebElement loggedInAsUsername = driver.findElement(By.xpath("//*[@id=\"header\"]/div/div/div/div[2]/div/ul/li[10]/a"));
