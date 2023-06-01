@@ -107,6 +107,7 @@ public class AutomationExercises01 extends TestBase {
         if (!checkBox2.isSelected()) {
             checkBox2.click();
         }
+        Thread.sleep(1500);
         // Fill details: First name, Last name, Company, Address, Address2, Country, State, City, Zipcode, Mobile Number
         // Click 'Create Account button'
         JavascriptExecutor jse1 = (JavascriptExecutor) driver;
