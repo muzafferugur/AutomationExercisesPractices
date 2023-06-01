@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class AutomationExercises01 extends TestBase {
 
-     /*
+     /**
 1. Launch browser
 2. Navigate to url 'http://automationexercise.com'
 3. Verify that home page is visible successfully
