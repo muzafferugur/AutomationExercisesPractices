@@ -82,13 +82,9 @@ public class AutomationExercises01 extends TestBase {
                 .sendKeys(Keys.TAB)
                 .sendKeys("9")
                 .sendKeys(Keys.TAB)
-                .sendKeys(Keys.ENTER)
-                .sendKeys(Keys.ARROW_DOWN)
-                .sendKeys(Keys.ENTER)
+                .sendKeys("October"+Keys.ENTER)
                 .sendKeys(Keys.TAB)
-                .sendKeys(Keys.ENTER)
-                .sendKeys(Keys.ARROW_DOWN)
-                .sendKeys(Keys.ENTER)
+                .sendKeys("1995"+Keys.ENTER)
                 .build().perform();
 
         Thread.sleep(2000);
