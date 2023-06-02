@@ -2,6 +2,7 @@ import com.github.javafaker.Faker;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -23,7 +24,7 @@ public class AutomationExercises06 extends TestBase {
      */
 
     @Test
-    public void test01() {
+    public void test01() throws InterruptedException {
         // Navigate to url 'http://automationexercise.com'
         driver.get("https://www.automationexercise.com");
 
@@ -53,7 +54,16 @@ public class AutomationExercises06 extends TestBase {
                 .sendKeys(Keys.TAB).sendKeys(email)
                 .sendKeys(Keys.TAB).sendKeys(subject)
                 .sendKeys(Keys.TAB).sendKeys(message)
-                .sendKeys(Keys.ENTER).perform();
+                .sendKeys(Keys.ENTER) .perform();
+
+        Thread.sleep(2000);
+        // Upload file
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        WebElement uploadFile= driver.findElement(By.xpath("//*[@id=\"contact-us-form\"]/div[5]/input"));
+        jse.executeScript("arguments[0].scrollIntoView(true);",uploadFile);
+        actions.click(uploadFile).sendKeys("\"C:\\Users\\muzaf\\OneDrive\\Masaüstü\\COHORTS HATA.jpg\"");
+
+
 
     }
 }
