@@ -54,16 +54,27 @@ public class AutomationExercises06 extends TestBase {
                 .sendKeys(Keys.TAB).sendKeys(email)
                 .sendKeys(Keys.TAB).sendKeys(subject)
                 .sendKeys(Keys.TAB).sendKeys(message)
-                .sendKeys(Keys.ENTER) .sendKeys(Keys.PAGE_DOWN).perform();
+                .sendKeys(Keys.ENTER).sendKeys(Keys.PAGE_DOWN).perform();
 
         // Upload file
-        WebElement uploadFile= driver.findElement(By.xpath("//input[@name='upload_file']"));
-        String fileName="C:\\Users\\muzaf\\Yeni Microsoft Excel Çalışma Sayfası.xlsx";
+        WebElement uploadFile = driver.findElement(By.xpath("//input[@name='upload_file']"));
+        String fileName = "C:\\Users\\muzaf\\Yeni Microsoft Excel Çalışma Sayfası.xlsx";
         uploadFile.sendKeys(fileName);
 
         // Click 'Submit' button
-        driver.findElement(By.xpath("//*[@id=\"contact-us-form\"]/div[6]/input")).click();
+        driver.findElement(By.xpath("//input[@data-qa='submit-button']")).click();
 
+        Thread.sleep(2000);
+        // Click OK button
+        driver.switchTo().alert().accept();
+
+        // Verify success message 'Success! Your details have been submitted successfully.' is visible
+        WebElement verifySuccessMessage = driver.findElement(By.xpath("//*[@id=\"contact-page\"]/div[2]/div[1]/div/div[2]"));
+        Assert.assertTrue(verifySuccessMessage.isDisplayed());
+
+        // Click 'Home' button and verify that landed to home page successfully
+        driver.findElement(By.xpath("//*[@id=\"form-section\"]/a")).click();
+        Assert.assertEquals(expectedUrl, actualUrl);
     }
 }
 
