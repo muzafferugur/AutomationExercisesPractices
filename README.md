@@ -4,7 +4,7 @@
 
 ##
 <h2 align="left"> <img src="https://media2.giphy.com/media/QssGEmpkyEOhBCb7e1/giphy.gif?cid=ecf05e47a0n3gi1bfqntqmob8g9aid1oyj2wr3ds3mg700bl&rid=giphy.gif" width ="30"> ABOUT THE PROJECT 👨‍💻</h2>
-##
+
 
 
 ⭐The given scenario was implemented in accordance with the request of the company, following the principles of Object-Oriented Programming (OOP) using the Java language. Object-Oriented Programming is a methodology in software development, and in this case, it was employed in Java to achieve a more modular, flexible, and maintainable code design. The principles of inheritance, polymorphism, abstraction, and encapsulation were among the OOP concepts applied.
