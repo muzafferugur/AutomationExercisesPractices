@@ -54,16 +54,18 @@ public class AutomationExercises06 extends TestBase {
                 .sendKeys(Keys.TAB).sendKeys(email)
                 .sendKeys(Keys.TAB).sendKeys(subject)
                 .sendKeys(Keys.TAB).sendKeys(message)
-                .sendKeys(Keys.ENTER) .perform();
+                .sendKeys(Keys.ENTER) .sendKeys(Keys.PAGE_DOWN).perform();
 
-        Thread.sleep(2000);
         // Upload file
-        JavascriptExecutor jse = (JavascriptExecutor) driver;
-        WebElement uploadFile= driver.findElement(By.xpath("//*[@id=\"contact-us-form\"]/div[5]/input"));
-        jse.executeScript("arguments[0].scrollIntoView(true);",uploadFile);
-        actions.click(uploadFile).sendKeys("\"C:\\Users\\muzaf\\OneDrive\\Masaüstü\\COHORTS HATA.jpg\"");
+        WebElement uploadFile= driver.findElement(By.xpath("//input[@name='upload_file']"));
+        String fileName="C:\\Users\\muzaf\\Yeni Microsoft Excel Çalışma Sayfası.xlsx";
+        uploadFile.sendKeys(fileName);
 
-
+        // Click 'Submit' button
+        driver.findElement(By.xpath("//*[@id=\"contact-us-form\"]/div[6]/input")).click();
 
     }
 }
+
+
+
