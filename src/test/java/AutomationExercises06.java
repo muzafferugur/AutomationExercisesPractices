@@ -61,6 +61,7 @@ public class AutomationExercises06 extends TestBase {
         JavascriptExecutor jse = (JavascriptExecutor) driver;
         WebElement uploadFile= driver.findElement(By.xpath("//*[@id=\"contact-us-form\"]/div[5]/input"));
         jse.executeScript("arguments[0].scrollIntoView(true);",uploadFile);
+
         actions.click(uploadFile).sendKeys("\"C:\\Users\\muzaf\\OneDrive\\Masaüstü\\COHORTS HATA.jpg\"");
 
 
