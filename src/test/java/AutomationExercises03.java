@@ -37,7 +37,7 @@ public class AutomationExercises03 extends TestBase {
         String actualText = driver.findElement(By.xpath("//h2[text()='Login to your account']")).getText();
         Assert.assertEquals(expectedText, actualText);
 
-        // Enter correct email address and password
+        // Enter incorrect email address and password
         String incorrectEmail = "muzafferugur1@example.com";
         String incorrectPassword = "123456789";
         driver.findElement(By.xpath("(//input[@placeholder='Email Address'])[1]")).sendKeys(incorrectEmail);
