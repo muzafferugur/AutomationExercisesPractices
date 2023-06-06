@@ -1,8 +1,12 @@
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import utilities.TestBase;
+
+import java.util.List;
 
 public class AutomationExercises08 extends TestBase {
     /**
@@ -35,6 +39,18 @@ public class AutomationExercises08 extends TestBase {
         Assert.assertTrue(allProductText.isDisplayed());
 
         // The products list is visible
+
+
+        //Click on 'View Product' of first product
+        Actions actions=new Actions(driver);
+        actions.sendKeys(Keys.PAGE_DOWN).perform();
+
+        driver.findElement(By.xpath("/html/body/section[2]/div/div/div[2]/div/div[2]/div/div[2]/ul/li/a")).click();
+
+        //User is landed to product detail page
+        String expectedProductDetailPage="https://www.automationexercise.com/product_details/1";
+        String actualProductDetailPage = driver.getCurrentUrl();
+        Assert.assertEquals(expectedProductDetailPage, actualProductDetailPage);
 
 
 
