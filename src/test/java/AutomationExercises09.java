@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import utilities.TestBase;
 
+import java.util.List;
+
 public class AutomationExercises09 extends TestBase {
     /**
      * 1. Launch browser
@@ -42,6 +44,8 @@ public class AutomationExercises09 extends TestBase {
         Assert.assertTrue(searchedProductsText.isDisplayed());
 
         // Verify all the products related to search are visible
+        List<WebElement> allProductList=driver.findElements(By.xpath("//div[@class='product-overlay']"));
+        Assert.assertFalse(allProductList.isEmpty());
 
 
     }
