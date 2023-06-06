@@ -2,20 +2,20 @@ import com.github.javafaker.Faker;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import utilities.TestBase;
 
-public class AutomationExercises10 extends TestBase {
+public class AutomationExercises11 extends TestBase {
     /**
      * 1. Launch browser
      * 2. Navigate to url 'http://automationexercise.com'
      * 3. Verify that home page is visible successfully
-     * 4. Scroll down to footer
-     * 5. Verify text 'SUBSCRIPTION'
-     * 6. Enter email address in input and click arrow button
-     * 7. Verify success message 'You have been successfully subscribed!' is visible
+     * 4. Click 'Cart' button
+     * 5. Scroll down to footer
+     * 6. Verify text 'SUBSCRIPTION'
+     * 7. Enter email address in input and click arrow button
+     * 8. Verify success message 'You have been successfully subscribed!' is visible
      */
 
     @Test
@@ -27,26 +27,22 @@ public class AutomationExercises10 extends TestBase {
         String expectedUrl = "https://www.automationexercise.com/";
         String actualUrl = driver.getCurrentUrl();
         Assert.assertEquals(expectedUrl, actualUrl);
-
+        // Click 'Cart' button
+        driver.findElement(By.xpath("//*[@id=\"header\"]/div/div/div/div[2]/div/ul/li[3]/a")).click();
         // Scroll down to footer
-        JavascriptExecutor jse = (JavascriptExecutor) driver;
-        WebElement footerSD= driver.findElement(By.xpath("//*[@id=\"footer\"]/div[2]"));
-        jse.executeScript("arguments[0].scrollIntoView(true);", footerSD);
-
-        //Verify text 'SUBSCRIPTION'
-        WebElement subText = driver.findElement(By.xpath("//*[@id=\"footer\"]/div[2]/div/div/div[2]/div/h2"));
-        Assert.assertTrue(subText.isDisplayed());
-
-        // Enter email address in input and click arrow button
-        Faker faker=new Faker();
         Actions actions=new Actions(driver);
+        WebElement footerSD = driver.findElement(By.xpath("//div[@class='footer-widget']"));
+        actions.moveToElement(footerSD).perform();
+        // Verify text 'SUBSCRIPTION'
+        WebElement subText = driver.findElement(By.xpath("/html/body/footer/div[1]/div/div/div[2]/div/h2"));
+        Assert.assertTrue(subText.isDisplayed());
+        // Enter email address in input and click arrow button
+        Faker faker =new Faker();
         String email = faker.internet().emailAddress();
         driver.findElement(By.xpath("//*[@id=\"susbscribe_email\"]")).sendKeys(email);
-        actions.moveToElement(driver.findElement(By.xpath("//*[@id=\"subscribe\"]/i"))).click().perform();
-
+        driver.findElement(By.xpath("//*[@id=\"subscribe\"]/i")).click();
         // Verify success message 'You have been successfully subscribed!' is visible
-        Assert.assertTrue(driver.findElement(By.xpath("//*[@id=\"success-subscribe\"]/div")).isDisplayed());
-
-
+        WebElement successMsg = driver.findElement(By.xpath("//*[@id=\"success-subscribe\"]"));
+        Assert.assertTrue(successMsg.isDisplayed());
     }
 }
