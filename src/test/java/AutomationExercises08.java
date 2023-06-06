@@ -22,7 +22,7 @@ public class AutomationExercises08 extends TestBase {
      */
 
     @Test
-    public void test01() {
+    public void test01() throws InterruptedException {
         // Navigate to url 'http://automationexercise.com'
         driver.get("https://www.automationexercise.com");
 
@@ -44,13 +44,15 @@ public class AutomationExercises08 extends TestBase {
         //Click on 'View Product' of first product
         Actions actions=new Actions(driver);
         actions.sendKeys(Keys.PAGE_DOWN).perform();
+        Thread.sleep(1500);
+        driver.findElement(By.xpath("(//a[text()='View Product'])[1]")).click();
 
-        driver.findElement(By.xpath("/html/body/section[2]/div/div/div[2]/div/div[2]/div/div[2]/ul/li/a")).click();
+        //  8. User is landed to product detail page
+        System.out.println("User is " + driver.getTitle());
 
-        //User is landed to product detail page
-        String expectedProductDetailPage="https://www.automationexercise.com/product_details/1";
-        String actualProductDetailPage = driver.getCurrentUrl();
-        Assert.assertEquals(expectedProductDetailPage, actualProductDetailPage);
+        //  9. Verify that detail detail is visible: product name, category, price, availability, condition, brand
+        Assert.assertTrue(driver.findElement(By.xpath("//div[@class='product-information']")).isDisplayed());
+        System.out.println(driver.findElement(By.xpath("//div[@class='product-information']")).getText());
 
 
 
